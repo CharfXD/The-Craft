@@ -1,5 +1,5 @@
 @echo off
-rem Simple helper to build or run The Craft on Windows
+rem The Craft - Windows helper (final)
 
 echo The Craft - Windows helper
 
@@ -8,11 +8,11 @@ if exist thecraft.exe (
 ) else (
     echo thecraft.exe not found. Attempting to build...
     where x86_64-w64-mingw32-gcc >nul 2>&1
-    if %ERRORLEVEL% == 0 (
+    if %ERRORLEVEL%==0 (
         set "CC=x86_64-w64-mingw32-gcc"
     ) else (
         where gcc >nul 2>&1
-        if %ERRORLEVEL% == 0 (
+        if %ERRORLEVEL%==0 (
             set "CC=gcc"
         ) else (
             echo No suitable compiler found in PATH. Install MinGW-w64 (or MSYS2) and add it to PATH.
@@ -22,7 +22,7 @@ if exist thecraft.exe (
     )
 
     echo Using %CC% to compile. Ensure SDL2 development files are installed and in your include/lib path.
-    %CC% -O2 -Wall src\main.c src\world.c -o thecraft.exe -lSDL2main -lSDL2
+    "%CC%" -O2 -Wall src\main.c src\world.c -o thecraft.exe -lSDL2main -lSDL2
     if %ERRORLEVEL% neq 0 (
         echo Build failed. If you're using MSYS2, open the mingw64 shell and run: pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
         pause
